@@ -40,7 +40,7 @@ class Scraper
       when "github"
         hash[:github] = url
       else
-        hash[:blog] = urls
+        hash[:blog] = url
       end
     end
     hash
