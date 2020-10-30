@@ -30,17 +30,19 @@ class Scraper
     hash[:profile_quote] = profile_quote if profile_quote != ""
     
     profile_page.css("div.social-icon-container a").each do |icon|
-      social = icon.children[0].attributes["src"].value[-15..-10]
-      url = icon.attributes["href"].value
-      case social
-      when "witter"
-        hash[:twitter] = url
-      when "nkedin"
-        hash[:linkedin] = url
-      when "github"
-        hash[:github] = url
-      else
-        hash[:blog] = url
+      if has_social = icon.children[0].attributes["src"]
+        social = has_social.value[-15..-10]
+        url = icon.attributes["href"].value
+        case social
+        when "witter"
+          hash[:twitter] = url
+        when "nkedin"
+          hash[:linkedin] = url
+        when "github"
+          hash[:github] = url
+        else
+          hash[:blog] = url
+        end
       end
     end
     hash
